@@ -1,4 +1,6 @@
 from opencv_implementation import invert_cv2absdiff
+from naive_implementation import invert_naive
+from numba_implementation import numba_invert
 
 from pathlib import Path
 from time import time
@@ -46,8 +48,9 @@ def run_task(
 
 if __name__ == "__main__":
     fp = Path(__file__).parent / "images" / "lenna.png"
-    iterations = 10001
+    iterations = 101
     cv2.imwrite("inverted-numpy.png", np.invert(cv2.imread(str(fp))))
+    cv2.imwrite("inverted-numba.png", numba_invert(cv2.imread(str(fp))))
     cv2.imwrite("inverted-cv2.png", cv2.bitwise_not(cv2.imread(str(fp))))
     inputs = BenchmarkInput(fp, iterations)
     invert_cv2_bit_res = run_task(
@@ -79,5 +82,22 @@ if __name__ == "__main__":
         "Inverts the colors of an image with a naive absdiff with max px value not via opencv in python",
         False,
     )
-
+    invert_cv2_bit_res = run_task(
+        inputs,
+        "invert",
+        numba_invert,
+        "numba-invert",
+        "Inverts the colors of an image with a pure python loop and numba in python",
+        
+    )
+    # this is a WIP, but don't run this with more than like 100;
+    # naive may need a catch and reduce number of iterations to 1 and multiply by iterations for sanity
+    invert_cv2_bit_res = run_task(
+        inputs,
+        "invert",
+        invert_naive,
+        "naive-invert",
+        "Inverts the colors of an image with a pure python loop and nothing else... in python",
+        
+    )
 # https://upload.wikimedia.org/wikipedia/en/thumb/7/7d/Lenna_%28test_image%29.png/220px-Lenna_%28test_image%29.png
