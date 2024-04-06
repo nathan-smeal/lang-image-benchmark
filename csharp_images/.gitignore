@@ -4,7 +4,7 @@ project.lock.json
 .DS_Store
 *.pyc
 nupkg/
-
+.mono/
 # Visual Studio Code
 .vscode/
 
@@ -41,3 +41,4 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+.fake
