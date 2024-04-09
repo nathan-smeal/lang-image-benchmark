@@ -9,6 +9,7 @@
 - opencv
 - numpy 
 - pillow
+- numba
 
 ## Running the bench
 
