@@ -13,6 +13,31 @@ Cross-language benchmark suite for common image processing operations.
 
 - **invert** -- bitwise image inversion (255 - pixel)
 
+## Prerequisites
+
+- [Conda](https://docs.conda.io/en/latest/miniconda.html) (Miniconda or Anaconda)
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+
+## Setup
+
+### Python
+
+Create the conda environment and install dependencies:
+
+```bash
+conda create -n image-bench python=3.10 -y
+conda activate image-bench
+pip install -e python/
+```
+
+### C#
+
+Restore NuGet packages (also happens automatically on first `dotnet run`):
+
+```bash
+dotnet restore csharp/
+```
+
 ## Quick Start
 
 ### Run All Benchmarks
@@ -22,14 +47,11 @@ Cross-language benchmark suite for common image processing operations.
 ./run_all.sh 5        # custom iteration count
 ```
 
-Requires the `image-bench` conda environment for Python and .NET 8 SDK for C#.
-
 ### Python Only
 
 ```bash
-cd python
-pip install -e .
-python run.py --format table -n 101
+conda activate image-bench
+python python/run.py --format table -n 101
 ```
 
 ### C# Only
