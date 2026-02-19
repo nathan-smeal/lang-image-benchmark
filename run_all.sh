@@ -24,3 +24,10 @@ echo "========================================="
 echo "  C# Benchmarks"
 echo "========================================="
 dotnet run --project csharp/ -- images/lenna.png "$ITERATIONS"
+echo
+
+# --- Rust Benchmarks ---
+echo "========================================="
+echo "  Rust Benchmarks"
+echo "========================================="
+cargo run --release --manifest-path rust/Cargo.toml -- images/lenna.png "$ITERATIONS"

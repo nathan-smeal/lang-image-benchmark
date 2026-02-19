@@ -1,0 +1,6 @@
+[package]
+name = "rust_bench"
+edition = "2021"
+
+[dependencies]
+image = "0.25"

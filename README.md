@@ -8,6 +8,7 @@ Cross-language benchmark suite for common image processing operations.
 |----------|-----------|-----------------|
 | Python | `python/` | NumPy, OpenCV, Pillow, Numba, pure Python |
 | C# | `csharp/` | EmguCV |
+| Rust | `rust/` | image crate (built-in invert, manual pixel loop) |
 
 ## Tasks
 
@@ -17,6 +18,7 @@ Cross-language benchmark suite for common image processing operations.
 
 - [Conda](https://docs.conda.io/en/latest/miniconda.html) (Miniconda or Anaconda)
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- [Rust toolchain](https://rustup.rs/) (rustc + cargo)
 
 ## Setup
 
@@ -36,6 +38,14 @@ Restore NuGet packages (also happens automatically on first `dotnet run`):
 
 ```bash
 dotnet restore csharp/
+```
+
+### Rust
+
+Build in release mode:
+
+```bash
+cargo build --release --manifest-path rust/Cargo.toml
 ```
 
 ## Quick Start
@@ -58,6 +68,12 @@ python python/run.py --format table -n 101
 
 ```bash
 dotnet run --project csharp/ -- images/lenna.png 101
+```
+
+### Rust Only
+
+```bash
+cargo run --release --manifest-path rust/Cargo.toml -- images/lenna.png 101
 ```
 
 ## Output
@@ -96,12 +112,21 @@ slug                         mean       median      std_dev          min        
 emgucv-invert            0.000090     0.000076     0.000072     0.000027     0.000545     0.009070
 ```
 
+### Rust
+
+```
+slug                         mean       median      std_dev          min          max        total
+--------------------------------------------------------------------------------------------------
+image-invert             0.000050     0.000048     0.000010     0.000040     0.000120     0.005050
+image-manual             0.000200     0.000195     0.000020     0.000180     0.000300     0.020200
+```
+
 All times are in seconds.
 
 ## Project Structure
 
 ```
-├── run_all.sh                # Run all benchmarks (Python + C#)
+├── run_all.sh                # Run all benchmarks (Python + C# + Rust)
 ├── images/lenna.png          # Shared test image
 ├── python/
 │   ├── run.py                # CLI entrypoint
@@ -110,5 +135,8 @@ All times are in seconds.
 ├── csharp/
 │   ├── Program.cs            # CLI entrypoint
 │   └── csharp_bench.csproj
+├── rust/
+│   ├── src/main.rs           # CLI entrypoint
+│   └── Cargo.toml
 └── output/                   # Generated result images (gitignored)
 ```
