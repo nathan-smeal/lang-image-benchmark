@@ -9,6 +9,10 @@ Cross-language benchmark suite for common image processing operations.
 | Python | `python/` | NumPy, OpenCV, Pillow, Numba, pure Python |
 | C# | `csharp/` | EmguCV |
 | Rust | `rust/` | image crate (built-in invert, manual pixel loop) |
+| C | `c/` | stb_image (manual byte loop) |
+| C++ | `cpp/` | stb_image (std::transform, manual loop) |
+| Haskell | `haskell/` | JuicyPixels (pixelMap, STVector) |
+| Elixir | `elixir/` | Nx (tensor op, binary comprehension) |
 
 ## Tasks
 
@@ -19,6 +23,10 @@ Cross-language benchmark suite for common image processing operations.
 - [Conda](https://docs.conda.io/en/latest/miniconda.html) (Miniconda or Anaconda)
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 - [Rust toolchain](https://rustup.rs/) (rustc + cargo)
+- `gcc` (C compiler)
+- `g++` (C++ compiler)
+- [GHC](https://www.haskell.org/ghcup/) and cabal (Haskell)
+- [Elixir](https://elixir-lang.org/install.html) and OTP
 
 ## Setup
 
@@ -48,6 +56,38 @@ Build in release mode:
 cargo build --release --manifest-path rust/Cargo.toml
 ```
 
+### C
+
+Downloads stb headers automatically and compiles:
+
+```bash
+make -C c/
+```
+
+### C++
+
+Downloads stb headers automatically and compiles:
+
+```bash
+make -C cpp/
+```
+
+### Haskell
+
+Build with cabal:
+
+```bash
+cd haskell && cabal build && cd ..
+```
+
+### Elixir
+
+Fetch dependencies:
+
+```bash
+cd elixir && mix deps.get && cd ..
+```
+
 ## Quick Start
 
 ### Run All Benchmarks
@@ -74,6 +114,30 @@ dotnet run --project csharp/ -- images/lenna.png 101
 
 ```bash
 cargo run --release --manifest-path rust/Cargo.toml -- images/lenna.png 101
+```
+
+### C Only
+
+```bash
+./c/c_bench images/lenna.png 101
+```
+
+### C++ Only
+
+```bash
+./cpp/cpp_bench images/lenna.png 101
+```
+
+### Haskell Only
+
+```bash
+cabal run --project-dir=haskell -- images/lenna.png 101
+```
+
+### Elixir Only
+
+```bash
+cd elixir && mix run -e 'Bench.main(["../images/lenna.png", "101"])'
 ```
 
 ## Output
@@ -126,7 +190,7 @@ All times are in seconds.
 ## Project Structure
 
 ```
-├── run_all.sh                # Run all benchmarks (Python + C# + Rust)
+├── run_all.sh                # Run all benchmarks
 ├── images/lenna.png          # Shared test image
 ├── python/
 │   ├── run.py                # CLI entrypoint
@@ -138,5 +202,17 @@ All times are in seconds.
 ├── rust/
 │   ├── src/main.rs           # CLI entrypoint
 │   └── Cargo.toml
+├── c/
+│   ├── main.c                # CLI entrypoint
+│   └── Makefile
+├── cpp/
+│   ├── main.cpp              # CLI entrypoint
+│   └── Makefile
+├── haskell/
+│   ├── app/Main.hs           # CLI entrypoint
+│   └── bench.cabal
+├── elixir/
+│   ├── lib/bench.ex          # CLI entrypoint (mix run)
+│   └── mix.exs
 └── output/                   # Generated result images (gitignored)
 ```

@@ -21,6 +21,21 @@ obj/
 # Rust
 rust/target/
 
+# C
+c/c_bench
+c/stb/
+
+# C++
+cpp/cpp_bench
+cpp/stb/
+
+# Elixir
+elixir/_build/
+elixir/deps/
+
+# Haskell
+haskell/dist-newstyle/
+
 # IDE
 .vscode/
 .idea/
