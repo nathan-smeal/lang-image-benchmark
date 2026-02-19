@@ -18,6 +18,9 @@ obj/
 *.suo
 .mono/
 
+# Rust
+rust/target/
+
 # IDE
 .vscode/
 .idea/
