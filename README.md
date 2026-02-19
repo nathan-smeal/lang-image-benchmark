@@ -78,7 +78,7 @@ cargo run --release --manifest-path rust/Cargo.toml -- images/lenna.png 101
 
 ## Output
 
-Both runners produce a table with the same columns (times in seconds):
+All runners produce a table with the same columns (times in seconds):
 
 ```
 slug                         mean       median      std_dev          min          max        total
@@ -117,8 +117,8 @@ emgucv-invert            0.000090     0.000076     0.000072     0.000027     0.0
 ```
 slug                         mean       median      std_dev          min          max        total
 --------------------------------------------------------------------------------------------------
-image-invert             0.000050     0.000048     0.000010     0.000040     0.000120     0.005050
-image-manual             0.000200     0.000195     0.000020     0.000180     0.000300     0.020200
+image-invert             0.000081     0.000073     0.000018     0.000067     0.000127     0.008213
+image-manual             0.000044     0.000046     0.000010     0.000022     0.000062     0.004420
 ```
 
 All times are in seconds.

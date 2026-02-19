@@ -2,7 +2,7 @@
 
 ## Implementations
 
-| Slug | Method | Description |
+| Slug | Library | Description |
 |------|--------|-------------|
 | image-invert | image crate | `imageops::colorops::invert()` built-in |
 | image-manual | manual loop | `pixels_mut()` with `255 - channel` per pixel |
