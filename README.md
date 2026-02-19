@@ -15,18 +15,27 @@ Cross-language benchmark suite for common image processing operations.
 
 ## Quick Start
 
-### Python
+### Run All Benchmarks
+
+```bash
+./run_all.sh          # default 101 iterations
+./run_all.sh 5        # custom iteration count
+```
+
+Requires the `image-bench` conda environment for Python and .NET 8 SDK for C#.
+
+### Python Only
 
 ```bash
 cd python
 pip install -e .
-python run.py --format json -n 5
+python run.py --format table -n 101
 ```
 
-### C#
+### C# Only
 
 ```bash
-dotnet run --project csharp/ -- images/lenna.png 5
+dotnet run --project csharp/ -- images/lenna.png 101
 ```
 
 ## Output
@@ -53,9 +62,36 @@ Both runners produce JSON with the same schema:
 
 Result images are saved to `output/` for visual verification.
 
+## Example Results
+
+Test image: `images/lenna.png` (512x512 RGB), 101 iterations, Ubuntu 20.04 on WSL2.
+
+### Python
+
+```
+slug                         mean       median      std_dev          min          max        total
+--------------------------------------------------------------------------------------------------
+numpy-invert             0.000006     0.000004     0.000007     0.000004     0.000074     0.000561
+cv2-bitwise              0.000015     0.000013     0.000007     0.000011     0.000064     0.001467
+cv2-absdiff              0.000016     0.000015     0.000005     0.000013     0.000058     0.001634
+pillow-invert            0.000302     0.000309     0.000037     0.000233     0.000442     0.030453
+numba-invert             0.000124     0.000136     0.000029     0.000065     0.000178     0.012496
+```
+
+### C#
+
+```
+slug                         mean       median      std_dev          min          max        total
+--------------------------------------------------------------------------------------------------
+emgucv-invert            0.000090     0.000076     0.000072     0.000027     0.000545     0.009070
+```
+
+All times are in seconds.
+
 ## Project Structure
 
 ```
+├── run_all.sh                # Run all benchmarks (Python + C#)
 ├── images/lenna.png          # Shared test image
 ├── python/
 │   ├── run.py                # CLI entrypoint
