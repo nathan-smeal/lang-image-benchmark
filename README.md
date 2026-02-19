@@ -62,27 +62,15 @@ dotnet run --project csharp/ -- images/lenna.png 101
 
 ## Output
 
-Both runners produce JSON with the same schema:
+Both runners produce a table with the same columns (times in seconds):
 
-```json
-[
-  {
-    "task": "invert",
-    "slug": "numpy-invert",
-    "description": "numpy.invert (bitwise NOT)",
-    "iterations": 5,
-    "mean": 0.000123,
-    "median": 0.000120,
-    "std_dev": 0.000005,
-    "min": 0.000118,
-    "max": 0.000132,
-    "total": 0.000615,
-    "times": [0.000132, 0.000120, 0.000118, 0.000125, 0.000120]
-  }
-]
+```
+slug                         mean       median      std_dev          min          max        total
+--------------------------------------------------------------------------------------------------
+numpy-invert             0.000006     0.000004     0.000007     0.000004     0.000074     0.000561
 ```
 
-Result images are saved to `output/` for visual verification.
+Python also supports `--format json` and `--format csv`. Result images are saved to `output/` for visual verification.
 
 ## Example Results
 
@@ -120,7 +108,7 @@ All times are in seconds.
 │   ├── benchmarks/           # Runner, types, output formatters
 │   └── implementations/      # One file per library
 ├── csharp/
-│   ├── Program.cs            # CLI entrypoint with JSON output
+│   ├── Program.cs            # CLI entrypoint
 │   └── csharp_bench.csproj
 └── output/                   # Generated result images (gitignored)
 ```

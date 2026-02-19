@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Text.Json;
 using Emgu.CV;
 using Emgu.CV.Structure;
 
@@ -40,25 +39,9 @@ double stdDev = times.Count > 1
     ? Math.Sqrt(times.Sum(t => (t - mean) * (t - mean)) / (times.Count - 1))
     : 0.0;
 
-var result = new[]
-{
-    new
-    {
-        task = "invert",
-        slug = "emgucv-invert",
-        description = "EmguCV Image.Not()",
-        iterations,
-        mean,
-        median,
-        std_dev = stdDev,
-        min,
-        max,
-        total,
-        times,
-    }
-};
-
-var options = new JsonSerializerOptions { WriteIndented = true };
-Console.WriteLine(JsonSerializer.Serialize(result, options));
+string header = $"{"slug",-20} {"mean",12} {"median",12} {"std_dev",12} {"min",12} {"max",12} {"total",12}";
+Console.WriteLine(header);
+Console.WriteLine(new string('-', header.Length));
+Console.WriteLine($"{"emgucv-invert",-20} {mean,12:F6} {median,12:F6} {stdDev,12:F6} {min,12:F6} {max,12:F6} {total,12:F6}");
 
 return 0;

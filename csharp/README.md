@@ -22,4 +22,4 @@ dotnet run
 dotnet run -- ../images/lenna.png 5
 ```
 
-Output is JSON matching the Python benchmark format.
+Output is a table matching the Python benchmark format.
