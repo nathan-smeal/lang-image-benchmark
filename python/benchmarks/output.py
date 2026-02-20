@@ -37,11 +37,11 @@ def to_csv(results: List[BenchmarkResult]) -> str:
 
 
 def to_table(results: List[BenchmarkResult]) -> str:
-    header = f"{'slug':<20} {'mean':>12} {'median':>12} {'std_dev':>12} {'min':>12} {'max':>12} {'total':>12}"
+    header = f"{'task':<20} {'slug':<25} {'mean':>12} {'median':>12} {'std_dev':>12} {'min':>12} {'max':>12} {'total':>12}"
     sep = "-" * len(header)
     lines = [header, sep]
     for r in results:
         lines.append(
-            f"{r.slug:<20} {r.mean:>12.6f} {r.median:>12.6f} {r.std_dev:>12.6f} {r.min:>12.6f} {r.max:>12.6f} {r.total:>12.6f}"
+            f"{r.task:<20} {r.slug:<25} {r.mean:>12.6f} {r.median:>12.6f} {r.std_dev:>12.6f} {r.min:>12.6f} {r.max:>12.6f} {r.total:>12.6f}"
         )
     return "\n".join(lines)

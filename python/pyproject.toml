@@ -7,4 +7,5 @@ dependencies = [
     "opencv-python",
     "Pillow",
     "numba",
+    "scipy",
 ]

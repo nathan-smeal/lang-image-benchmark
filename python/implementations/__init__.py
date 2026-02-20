@@ -5,3 +5,5 @@ from .opencv_impl import IMPLEMENTATIONS as _opencv
 from .pillow_impl import IMPLEMENTATIONS as _pillow
 
 ALL_IMPLEMENTATIONS = _numpy + _opencv + _pillow + _numba + _naive
+
+NAIVE_SLUGS = {i.slug for i in _naive}

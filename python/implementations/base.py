@@ -9,4 +9,5 @@ class Implementation:
     description: str
     fn: Callable
     backend: Literal["numpy", "pillow"]
+    input_type: Literal["rgb", "grayscale"] = "rgb"
     warmup: bool = False

@@ -5,7 +5,7 @@ from pathlib import Path
 from benchmarks.runner import run_single
 from benchmarks.types import BenchmarkConfig
 from benchmarks.output import to_json, to_csv, to_table
-from implementations import ALL_IMPLEMENTATIONS
+from implementations import ALL_IMPLEMENTATIONS, NAIVE_SLUGS
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
 
     impls = ALL_IMPLEMENTATIONS
     if not args.include_native:
-        impls = [i for i in impls if i.slug != "naive-invert"]
+        impls = [i for i in impls if i.slug not in NAIVE_SLUGS]
     if args.task:
         impls = [i for i in impls if i.task == args.task]
     if args.impl:

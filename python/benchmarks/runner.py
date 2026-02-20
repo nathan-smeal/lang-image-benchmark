@@ -15,16 +15,24 @@ def run_single(impl: Implementation, config: BenchmarkConfig) -> BenchmarkResult
         original = cv2.imread(config.image_path)
         if original is None:
             raise FileNotFoundError(f"Could not load image: {config.image_path}")
+        if impl.input_type == "grayscale":
+            bench_input = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
+        else:
+            bench_input = original
     else:
         original = Image.open(config.image_path)
+        if impl.input_type == "grayscale":
+            bench_input = original.convert("L")
+        else:
+            bench_input = original
 
     if impl.warmup:
-        impl.fn(original.copy() if impl.backend == "numpy" else original.copy())
+        impl.fn(bench_input.copy() if impl.backend == "numpy" else bench_input.copy())
 
     times = []
     result_img = None
     for _ in range(config.iterations):
-        img_copy = original.copy()
+        img_copy = bench_input.copy()
         start = time.perf_counter()
         result_img = impl.fn(img_copy)
         elapsed = time.perf_counter() - start
